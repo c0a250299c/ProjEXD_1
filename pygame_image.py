@@ -21,19 +21,27 @@ def main():
             if event.type == pg.QUIT: return
 
         key_list = pg.key.get_pressed() #練習10-3:全キーの取得
+        yokomove=-1
+        tatemove=0
         if key_list[pg.K_UP]: #上矢印キーが押されたら
-            kk_rct.move_ip((0,-1)) #縦に-1動かす
+            #kk_rct.move_ip((0,-1)) #縦に-1動かす
+            tatemove-=1
         if key_list[pg.K_DOWN]: #下矢印キーが押されたら
-            kk_rct.move_ip((0,1)) #縦に1動かす
+            #kk_rct.move_ip((0,1)) #縦に1動かす
+            tatemove+=1
         if key_list[pg.K_LEFT]: #左矢印キーが押されたら
-            kk_rct.move_ip((-1,0)) #左に-1動かす
+            #kk_rct.move_ip((-1,0)) #左に-1動かす
+            yokomove-=1
         if key_list[pg.K_RIGHT]: #右矢印キーが押されたら
-            kk_rct.move_ip((1,0)) #縦に1動かす            
+            #kk_rct.move_ip((1,0)) #横に1動かす 
+            yokomove+=2
+        kk_rct.move_ip((yokomove,tatemove))        
         x = tmr%3200 #練習9
         screen.blit(bg_img, [-x, 0])#練習2&練習5
         screen.blit(bghan_img, [-x+1600, 0])#練習7#練習8壁紙反転
         screen.blit(bg_img, [-x+3200, 0])#練習9
         screen.blit(kk_img, kk_rct)#練習4s 練習10-5
+        
         pg.display.update()
         tmr += 1        
         clock.tick(200)#練習6
