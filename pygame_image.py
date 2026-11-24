@@ -13,16 +13,27 @@ def main():
     kk_img = pg.image.load("fig/3.png")#練習3
     kk_img = pg.transform.flip(kk_img,True,False)#練習4
     bghan_img = pg.transform.flip(bg_img,True,False)#練習8壁紙反転
+    kk_rct = kk_img.get_rect() #練習10-1:こうかとんRectを取得する
+    kk_rct.center = 300, 200 #練習10-2こうかとん初期座標の設定
     tmr = 0
     while True:
         for event in pg.event.get():
             if event.type == pg.QUIT: return
 
+        key_list = pg.key.get_pressed() #練習10-3:全キーの取得
+        if key_list[pg.K_UP]: #上矢印キーが押されたら
+            kk_rct.move_ip((0,-1)) #縦に-1動かす
+        if key_list[pg.K_DOWN]: #下矢印キーが押されたら
+            kk_rct.move_ip((0,1)) #縦に1動かす
+        if key_list[pg.K_LEFT]: #左矢印キーが押されたら
+            kk_rct.move_ip((-1,0)) #左に-1動かす
+        if key_list[pg.K_RIGHT]: #右矢印キーが押されたら
+            kk_rct.move_ip((1,0)) #縦に1動かす            
         x = tmr%3200 #練習9
         screen.blit(bg_img, [-x, 0])#練習2&練習5
         screen.blit(bghan_img, [-x+1600, 0])#練習7#練習8壁紙反転
         screen.blit(bg_img, [-x+3200, 0])#練習9
-        screen.blit(kk_img, [300, 200])#練習4s
+        screen.blit(kk_img, kk_rct)#練習4s 練習10-5
         pg.display.update()
         tmr += 1        
         clock.tick(200)#練習6
